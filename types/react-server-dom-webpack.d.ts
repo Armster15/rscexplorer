@@ -2,7 +2,7 @@
 // Based on Flow types from React source
 
 declare module "react-server-dom-webpack/server" {
-  import type { Thenable, ReactNode } from "react";
+  import type { ReactNode } from "react";
 
   export type TemporaryReferenceSet = Set<unknown>;
 
@@ -52,7 +52,7 @@ declare module "react-server-dom-webpack/server" {
     body: string | FormData,
     webpackMap: ServerManifest,
     options?: { temporaryReferences?: TemporaryReferenceSet },
-  ): Thenable<T>;
+  ): PromiseLike<T>;
 
   export function decodeAction<T = unknown>(
     body: FormData,
@@ -83,8 +83,6 @@ declare module "react-server-dom-webpack/server" {
 }
 
 declare module "react-server-dom-webpack/client" {
-  import type { Thenable } from "react";
-
   export type TemporaryReferenceSet = Set<unknown>;
 
   export type CallServerCallback = (id: string, args: unknown[]) => Promise<unknown>;
@@ -108,12 +106,12 @@ declare module "react-server-dom-webpack/client" {
   export function createFromReadableStream<T = unknown>(
     stream: ReadableStream,
     options?: Options,
-  ): Thenable<T>;
+  ): PromiseLike<T>;
 
   export function createFromFetch<T = unknown>(
     promiseForResponse: Promise<Response>,
     options?: Options,
-  ): Thenable<T>;
+  ): PromiseLike<T>;
 
   export function encodeReply(
     value: unknown,
